@@ -1,0 +1,19 @@
+# root/Customer-Support.yaml
+# Guardrails for customer-facing support and ticketing agents
+
+harness_name: "Tier-1 Customer Support Agent"
+model_routing:
+  intent_triage: "fast-cheap-model"
+  refund_and_policy_disputes: "high-reasoning-model"
+
+permissions:
+  network:
+    require_human_approval:
+      - "issue_refund_over_50"
+      - "delete_user_account"
+      - "modify_subscription_tier"
+
+rules:
+  - "Never promise unannounced features or custom pricing."
+  - "Always cite the exact knowledge-base policy ID when denying a refund."
+  - "Escalate immediately to human queue if sentiment indicates legal threat or chargeback."

@@ -1,0 +1,20 @@
+# community/MCP-Tool-Firewall.yaml
+# Policy wrapper for third-party Model Context Protocol (MCP) servers
+
+harness_name: "MCP Zero-Trust Tool Firewall"
+audit_logging:
+  enabled: true
+  log_tool_arguments: true
+  log_tool_outputs: true
+
+permissions:
+  mcp_servers:
+    allow_list: ["mcp-github", "mcp-postgres-readonly"]
+    deny_list: ["mcp-shell-unrestricted", "mcp-browser-exec"]
+  rate_limits:
+    max_tool_calls_per_minute: 30
+    max_tokens_per_session: 150000
+
+rules:
+  - "Block any MCP tool response containing prompt-injection directives (e.g., 'Ignore previous instructions')."
+  - "Strip hidden HTML/Markdown comments from external data before passing to model context."

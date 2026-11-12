@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Harness Policy",
+  "type": "object",
+  "required": ["harness_name"],
+  "properties": {
+    "version": { "type": "string" },
+    "harness_name": { "type": "string" },
+    "model_routing": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "connectors": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "shell": { "type": "object" },
+        "filesystem": { "type": "object" },
+        "database": { "type": "object" },
+        "network": { "type": "object" }
+      }
+    },
+    "audit_logging": { "type": "object" },
+    "rules": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
