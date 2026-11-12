@@ -1,0 +1,18 @@
+# root/Coding-Agent.yaml
+# Core harness for autonomous software engineering agents
+
+harness_name: "Autonomous Coding Agent"
+model_routing:
+  planning_and_architecture: "high-reasoning-model"
+  boilerplate_and_tests: "fast-cheap-model"
+
+permissions:
+  shell:
+    allowed_commands: ["npm test", "pytest", "git status", "git diff"]
+    blocked_commands: ["rm -rf", "curl", "wget", "git push --force"]
+  filesystem:
+    deny_write: [".github/workflows/**", ".env*", "package-lock.json"]
+
+rules:
+  - "Always run existing test suites before marking a task complete."
+  - "Never hardcode API keys, tokens, or credentials."

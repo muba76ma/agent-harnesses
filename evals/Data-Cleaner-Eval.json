@@ -1,0 +1,26 @@
+{
+  "eval_suite": "CRM_Deduplication_Taste_Test",
+  "version": "1.0",
+  "test_cases": [
+    {
+      "id": "edge_case_01",
+      "description": "Same company name, different subsidiaries (must NOT merge)",
+      "input": [
+        {"id": 101, "name": "Acme Corp US", "domain": "acme.com"},
+        {"id": 102, "name": "Acme Corp EU", "domain": "acme.eu"}
+      ],
+      "expected_action": "KEEP_SEPARATE",
+      "severity": "CRITICAL"
+    },
+    {
+      "id": "edge_case_02",
+      "description": "Duplicate user from messy Slack + Salesforce export",
+      "input": [
+        {"id": 201, "name": "J. Doe", "email": "jane@startup.io", "source": "Salesforce"},
+        {"id": 202, "name": "Jane Doe", "email": "jane@startup.io", "source": "Slack"}
+      ],
+      "expected_action": "MERGE_AND_ENRICH",
+      "severity": "STANDARD"
+    }
+  ]
+}

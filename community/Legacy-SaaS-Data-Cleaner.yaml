@@ -1,0 +1,24 @@
+# community/Legacy-SaaS-Data-Cleaner.yaml
+# Vertical harness for deduplicating CRM records, Slack threads, and PDFs before MCP ingestion
+
+harness_name: "Enterprise Data Hygiene Agent"
+model_routing:
+  classification_and_dedup: "fast-cheap-model"
+  conflict_resolution: "high-reasoning-model"
+  schema_formatting: "structured-output-model"
+
+connectors:
+  - mcp-postgres-crm
+  - mcp-slack-export
+  - mcp-gdrive-pdfs
+
+
+
+rules:
+  - "Never merge two customer records unless email OR tax_id matches 100%."
+  - "Flag records with >3 conflicting phone numbers for human review queue."
+  - "Convert unstructured PDF invoices into strict JSON matching schema v2.1."
+
+human_review_ui:
+  trigger_confidence_below: 0.85
+  display_diff: true

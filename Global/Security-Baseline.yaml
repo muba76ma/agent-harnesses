@@ -1,0 +1,24 @@
+# Global/Security-Baseline.yaml
+# Universal guardrail policy for enterprise MCP servers and agent harnesses
+
+version: "1.0"
+audit_logging:
+  enabled: true
+  log_failed_tool_calls: true
+  redact_patterns:
+    - "sk-[a-zA-Z0-9]{48}"
+    - "\\b\\d{3}-\\d{2}-\\d{4}\\b"
+
+permissions:
+  filesystem:
+    allow_read: ["./workspace/**"]
+    deny_read: ["**/.env", "**/.git/**", "**/secrets/**"]
+    allow_write: ["./workspace/output/**"]
+  database:
+    mode: "read_only"
+    blocked_keywords: ["DROP", "DELETE", "TRUNCATE", "ALTER", "UPDATE"]
+  network:
+    require_human_approval:
+      - "send_email"
+      - "execute_payment"
+      - "post_to_slack_public"
